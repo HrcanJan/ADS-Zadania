@@ -1,0 +1,1 @@
+This repository will have 4 branches. A branch for each assignment. All licenses belonging to FEI STU and MIT.
