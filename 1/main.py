@@ -114,12 +114,12 @@ def search_tree(root, str, start, end, s, count):
     if start > end or end <= 0 or root[start][end] == None:
         return None, count
 
-    root_s = str[root[start][end]]
+    x = str[root[start][end]]
 
-    if (not root_s) or (len(root_s) == 0) or (root_s == s):
-        return root_s, count + 1
+    if (not x) or (len(x) == 0) or (x == s):
+        return x, count + 1
     
-    if s < root_s:
+    if s < x:
         return search_tree(root, str, start, root[start][end] - 1, s, count + 1)
     
     return search_tree(root, str, root[start][end] + 1, end, s, count + 1)
@@ -136,8 +136,8 @@ def pocet_porovnani(s, root, str):
     """
     if len(s) == 0:
         return None, 0
-    found_key, count = search_tree(root, str, 1, len(root) - 1, s, 0)
-    return found_key, count
+    key, count = search_tree(root, str, 1, len(root) - 1, s, 0)
+    return key, count
 
 
 def branches(root, str):
@@ -161,9 +161,8 @@ def branches(root, str):
     current_level = 0
 
     for branch in branches:
-        level = branch[1]
-        if(current_level < level):
-            current_level = level
+        if(current_level < branch[1]):
+            current_level = branch[1]
             if(branch[1] == 1):
                 print(f"Root:")
                 print(f"\t-{branch[0]}")
