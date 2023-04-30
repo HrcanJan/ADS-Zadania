@@ -43,7 +43,7 @@ def dist(x, y):
     x2 = x[1]
     y1 = y[0]
     y2 = y[1]
-    return ((x1 - x2)**2 + (y1 - y2)**2)**0.5
+    return ((x1 - y1)**2 + (x2 - y2)**2)**0.5
 
 
 def buildSet(arr):
@@ -107,6 +107,7 @@ class Graph:
         self.graph = sorted(self.graph, key=lambda item: item[2])
         parent = []
         rank = []
+        total = 0
         for node in range(self.V):
             parent.append(node)
             rank.append(0)
@@ -126,9 +127,8 @@ class Graph:
                 e = e + 1
                 result.append([u, v, w])
                 self.apply_union(parent, rank, x, y)
-        total = 0
-        for _, _, weight in result:
-            total += weight
+                total += w
+        # for u, v, weight in result:
             # print("%d - %d: %d" % (u, v, weight))
         print("Total = ", total)
 
@@ -155,11 +155,12 @@ class Graph:
 # g.kruskal_algo(initial_edges)
 
 
-arr = load("./graph_2.txt")
+arr = load("./graf18.txt")
 
 myList, myKeys = buildSet(arr)
 num_vertices = len(myList)
 indices = create_map(myList)
+
 
 initial_edges = []
 
@@ -167,14 +168,16 @@ g = Graph(num_vertices)
 for i in range(0, len(arr), 2):
     initial_edges.append([find_index((arr[i][0], arr[i][1])), find_index((arr[i + 1][0], arr[i + 1][1])), dist(arr[i], arr[i + 1])])
 
+
 e = []
 for i in range(len(myList)):
     for j in range(i + 1, len(myList)):
         e.append([find_index((myList[i])), find_index((myList[j])), dist(myList[i], myList[j])])
 
+
 e.sort(key=takeThird)
 for i in e:
     g.add_edge(i[0], i[1], i[2])
 
-print("here")
+
 g.kruskal_algo(initial_edges)
