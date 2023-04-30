@@ -71,15 +71,6 @@ def find_index(element):
     return indices[element]
 
 
-def allEdges(v):
-    e = []
-    for i in range(len(v)):
-        for j in range(i + 1, len(v)):
-            # e.append([v[i], v[j]])
-            e.append([find_index((v[i])), find_index((v[j]))])
-    return e
-
-
 # Credit to: https://www.programiz.com/dsa/kruskal-algorithm
 class Graph:
     def __init__(self, vertices):
@@ -135,8 +126,11 @@ class Graph:
                 e = e + 1
                 result.append([u, v, w])
                 self.apply_union(parent, rank, x, y)
-        for u, v, weight in result:
-            print("%d - %d: %d" % (u, v, weight))
+        total = 0
+        for _, _, weight in result:
+            total += weight
+            # print("%d - %d: %d" % (u, v, weight))
+        print("Total = ", total)
 
 
 # g = Graph(6)
@@ -166,14 +160,23 @@ arr = load("./graph_2.txt")
 myList, myKeys = buildSet(arr)
 num_vertices = len(myList)
 indices = create_map(myList)
-#  print(indices)
 
-edges = allEdges(myList)
-# print(edges[:10])
-
+initial_edges = []
 
 g = Graph(num_vertices)
 for i in range(0, len(arr), 2):
-    g.add_edge(find_index(myList, (arr[i][0], arr[i][1])), find_index(myList, (arr[i + 1][0], arr[i + 1][1])), dist(arr[i], arr[i + 1]))
+    initial_edges.append([find_index((arr[i][0], arr[i][1])), find_index((arr[i + 1][0], arr[i + 1][1])), dist(arr[i], arr[i + 1])])
 
-print(g.get())
+e = []
+for i in range(len(myList)):
+    for j in range(i + 1, len(myList)):
+        e.append([find_index((myList[i])), find_index((myList[j])), dist(myList[i], myList[j])])
+
+e.sort(key=takeThird)
+for i in e:
+    g.add_edge(i[0], i[1], i[2])
+    
+# g.add_edge(find_index((arr[i][0], arr[i][1])), find_index((arr[i + 1][0], arr[i + 1][1])), dist(arr[i], arr[i + 1]))
+
+print("here")
+g.kruskal_algo(initial_edges)
