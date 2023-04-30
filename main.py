@@ -23,14 +23,22 @@ def load(name):
 
 
 # textArr.sort(key=takeSecond)
-def takeSecond(arr):
+def takeThird(arr):
     """
     Used as a key to return the 2nd element in an array
 
     params:
     arr:    input array
     """
-    return arr[1]
+    return arr[2]
+
+
+def dist(x):
+    x1 = x[0]
+    x2 = x[1]
+    y1 = x[2]
+    y2 = x[3]
+    return abs(x2 - y2) + abs(x1 - y1)
 
 
 # Credit to: https://www.programiz.com/dsa/kruskal-algorithm
@@ -90,26 +98,26 @@ class Graph:
             print("%d - %d: %d" % (u, v, weight))
 
 
-g = Graph(6)
-g.add_edge(0, 1, 4)
-g.add_edge(0, 2, 4)
-g.add_edge(1, 2, 2)
-g.add_edge(1, 0, 4)
-g.add_edge(2, 0, 4)
-g.add_edge(2, 1, 2)
-g.add_edge(2, 3, 3)
-g.add_edge(2, 5, 2)
-g.add_edge(2, 4, 4)
-g.add_edge(3, 2, 3)
-g.add_edge(3, 4, 3)
-g.add_edge(4, 2, 4)
-g.add_edge(4, 3, 3)
-g.add_edge(5, 2, 2)
-g.add_edge(5, 4, 3)
+# g = Graph(6)
+# g.add_edge(0, 1, 4)
+# g.add_edge(0, 2, 4)
+# g.add_edge(1, 2, 2)
+# g.add_edge(1, 0, 4)
+# g.add_edge(2, 0, 4)
+# g.add_edge(2, 1, 2)
+# g.add_edge(2, 3, 3)
+# g.add_edge(2, 5, 2)
+# g.add_edge(2, 4, 4)
+# g.add_edge(3, 2, 3)
+# g.add_edge(3, 4, 3)
+# g.add_edge(4, 2, 4)
+# g.add_edge(4, 3, 3)
+# g.add_edge(5, 2, 2)
+# g.add_edge(5, 4, 3)
 
-# Call Kruskal algorithm with initial edges
-initial_edges = [[0, 1, 4], [2, 5, 2]]
-g.kruskal_algo(initial_edges)
+# # Call Kruskal algorithm with initial edges
+# initial_edges = [[0, 1, 4], [2, 5, 2]]
+# g.kruskal_algo(initial_edges)
 
 
 
