@@ -43,7 +43,7 @@ def dist(x, y):
     x2 = x[1]
     y1 = y[0]
     y2 = y[1]
-    return abs(x2 - y2) + abs(x1 - y1)
+    return ((x1 - x2)**2 + (y1 - y2)**2)**0.5
 
 
 def buildSet(arr):
@@ -175,8 +175,6 @@ for i in range(len(myList)):
 e.sort(key=takeThird)
 for i in e:
     g.add_edge(i[0], i[1], i[2])
-    
-# g.add_edge(find_index((arr[i][0], arr[i][1])), find_index((arr[i + 1][0], arr[i + 1][1])), dist(arr[i], arr[i + 1]))
 
 print("here")
 g.kruskal_algo(initial_edges)
