@@ -1,6 +1,9 @@
 import re
 
 
+indices = {}
+
+
 def load(name):
     """
     Load the data
@@ -57,11 +60,24 @@ def buildSet(arr):
     return l, my_keys
 
 
-def find_index(lst, element):
+def create_map(lst):
     indices = {}
     for i, x in enumerate(lst):
         indices[x] = i
+    return indices
+
+
+def find_index(element):
     return indices[element]
+
+
+def allEdges(v):
+    e = []
+    for i in range(len(v)):
+        for j in range(i + 1, len(v)):
+            # e.append([v[i], v[j]])
+            e.append([find_index((v[i])), find_index((v[j]))])
+    return e
 
 
 # Credit to: https://www.programiz.com/dsa/kruskal-algorithm
@@ -149,10 +165,15 @@ arr = load("./graph_2.txt")
 
 myList, myKeys = buildSet(arr)
 num_vertices = len(myList)
-# print(find_index(myList, (86632, 90855)))
+indices = create_map(myList)
+#  print(indices)
+
+edges = allEdges(myList)
+# print(edges[:10])
 
 
 g = Graph(num_vertices)
 for i in range(0, len(arr), 2):
     g.add_edge(find_index(myList, (arr[i][0], arr[i][1])), find_index(myList, (arr[i + 1][0], arr[i + 1][1])), dist(arr[i], arr[i + 1]))
 
+print(g.get())
