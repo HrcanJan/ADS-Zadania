@@ -35,19 +35,33 @@ def takeThird(arr):
     return arr[2]
 
 
-def dist(x):
+def dist(x, y):
     x1 = x[0]
     x2 = x[1]
-    y1 = x[2]
-    y2 = x[3]
+    y1 = y[0]
+    y2 = y[1]
     return abs(x2 - y2) + abs(x1 - y1)
 
 
 def buildSet(arr):
     my_set = set()
+    my_keys = []
+    c = 0
     for i in arr:
-        my_set.add((i[0], i[1]))
-    return my_set
+        x = (i[0], i[1])
+        if x not in my_set:
+            my_set.add((i[0], i[1]))
+            my_keys.append(c)
+            c += 1
+    l = list(my_set)
+    return l, my_keys
+
+
+def find_index(lst, element):
+    indices = {}
+    for i, x in enumerate(lst):
+        indices[x] = i
+    return indices[element]
 
 
 # Credit to: https://www.programiz.com/dsa/kruskal-algorithm
@@ -59,8 +73,10 @@ class Graph:
     def add_edge(self, u, v, w):
         self.graph.append([u, v, w])
 
-    # Search function
+    def get(self):
+        return self.graph
 
+    # Search function
     def find(self, parent, i):
         if parent[i] == i:
             return i
@@ -129,10 +145,14 @@ class Graph:
 # g.kruskal_algo(initial_edges)
 
 
-import numpy as np
-arr = load("./graf.txt")
+arr = load("./graph_2.txt")
 
-mySet = buildSet(arr)
-num_vertices = len(mySet)
+myList, myKeys = buildSet(arr)
+num_vertices = len(myList)
+# print(find_index(myList, (86632, 90855)))
+
 
 g = Graph(num_vertices)
+for i in range(0, len(arr), 2):
+    g.add_edge(find_index(myList, (arr[i][0], arr[i][1])), find_index(myList, (arr[i + 1][0], arr[i + 1][1])), dist(arr[i], arr[i + 1]))
+
