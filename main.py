@@ -15,9 +15,11 @@ def load(name):
             xtmp = []
             xtmp.append(int(x[1]))
             xtmp.append(int(x[2]))
-            xtmp.append(int(x[4]))
-            xtmp.append(int(x[5]))
+            xtmp2 = []
+            xtmp2.append(int(x[4]))
+            xtmp2.append(int(x[5]))
             arr.append(xtmp)
+            arr.append(xtmp2)
 
     return arr
 
@@ -39,6 +41,13 @@ def dist(x):
     y1 = x[2]
     y2 = x[3]
     return abs(x2 - y2) + abs(x1 - y1)
+
+
+def buildSet(arr):
+    my_set = set()
+    for i in arr:
+        my_set.add((i[0], i[1]))
+    return my_set
 
 
 # Credit to: https://www.programiz.com/dsa/kruskal-algorithm
@@ -120,5 +129,10 @@ class Graph:
 # g.kruskal_algo(initial_edges)
 
 
-
+import numpy as np
 arr = load("./graf.txt")
+
+mySet = buildSet(arr)
+num_vertices = len(mySet)
+
+g = Graph(num_vertices)
